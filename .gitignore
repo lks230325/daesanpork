@@ -1,0 +1,31 @@
+# 환경변수 및 민감 정보 보호
+.env
+**/.env
+
+# 사내 비공개 문서 및 별도 하위 프로젝트 제외
+2027년*.xlsx
+★*.xlsx
+*.pdf
+한돈_4대플랫폼_통합비교레포트_*.xlsx
+one_page_4platforms_report.png
+slack_app_manifest.json
+slack_payload_preview.json
+foodsafety_collector/
+partner_admin/
+
+# 로컬 대용량 바이너리·터널 개인키·실시간 DB 및 빌드 산출물 제외
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+dist/
+handon_master.db
+handon_master.db-shm
+handon_master.db-wal
+한돈_누적관리대장.xlsx
+외부접속_URL_안내.txt
+verify_*.png
+deploy/*.exe
+deploy/tunwg_keys/
+deploy/logs/
+deploy/deploy_status.json
