@@ -195,7 +195,7 @@ class DeploymentSupervisor:
                 break
 
     def _watch_fixed_tunnel_output(self, proc: subprocess.Popen) -> None:
-        url_regex = re.compile(r"(https://[a-zA-Z0-9\-\.]+\.tunwg\.com)")
+        url_regex = re.compile(r"(https://[a-zA-Z0-9\-]+\.l\.tunwg\.com)")
         tun_log_path = LOGS_DIR / "fixed_tunnel.log"
         with open(tun_log_path, "a", encoding="utf-8") as tlog:
             assert proc.stdout is not None

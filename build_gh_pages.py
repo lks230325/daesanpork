@@ -26,8 +26,13 @@ DB_PATH = WORK_DIR / "handon_master.db"
 EXCEL_PATH = WORK_DIR / "한돈_누적관리대장.xlsx"
 
 
+DEFAULT_GH_PAGES_URL = "https://lks230325.github.io/daesanpork/"
+
+
 def export_db_to_static_data(public_pages_url: str = "") -> Dict[str, Any]:
     """로컬 SQLite DB가 존재할 경우 static_data/ 폴더에 최신 JSON 및 회차별 스냅샷·엑셀 추출"""
+    if not public_pages_url:
+        public_pages_url = os.environ.get("GH_PAGES_URL", "").strip() or DEFAULT_GH_PAGES_URL
     if not DB_PATH.exists():
         latest_json = STATIC_DATA_DIR / "dashboard_latest.json"
         if latest_json.exists():
