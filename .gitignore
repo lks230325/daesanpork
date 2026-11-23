@@ -24,6 +24,7 @@ dist/
 /handon_master.db-wal
 /한돈_누적관리대장.xlsx
 /외부접속_URL_안내.txt
+/GitHub_Pages_로그인_및_자동배포.bat
 verify_*.png
 deploy/*.exe
 deploy/tunwg_keys/
