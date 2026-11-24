@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
@@ -205,6 +205,48 @@ def get_deploy_status_info() -> Dict[str, Any]:
         except Exception:
             return {}
     return {}
+
+
+ROBOTS_TXT_CONTENT = """User-agent: Googlebot
+Disallow: /
+
+User-agent: Yeti
+Disallow: /
+
+User-agent: NaverBot
+Disallow: /
+
+User-agent: Daumoa
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: *
+Disallow: /
+"""
+
+
+@app.middleware("http")
+async def block_search_indexing_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
+
+
+@app.get("/robots.txt", response_class=PlainTextResponse)
+async def robots_txt() -> PlainTextResponse:
+    return PlainTextResponse(content=ROBOTS_TXT_CONTENT)
 
 
 @app.get("/", response_class=HTMLResponse)

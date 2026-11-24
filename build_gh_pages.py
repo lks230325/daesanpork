@@ -144,6 +144,16 @@ def build_dist(public_pages_url: str = "") -> Path:
 
     (DIST_DIR / "index.html").write_text(rendered_html, encoding="utf-8")
     (DIST_DIR / ".nojekyll").write_text("", encoding="utf-8")
+    robots_txt = (
+        "User-agent: Googlebot\nDisallow: /\n\n"
+        "User-agent: Yeti\nDisallow: /\n\n"
+        "User-agent: NaverBot\nDisallow: /\n\n"
+        "User-agent: Daumoa\nDisallow: /\n\n"
+        "User-agent: Bingbot\nDisallow: /\n\n"
+        "User-agent: GPTBot\nDisallow: /\n\n"
+        "User-agent: *\nDisallow: /\n"
+    )
+    (DIST_DIR / "robots.txt").write_text(robots_txt, encoding="utf-8")
 
     print(
         f"[BUILD_OK] dist 생성 완료: index.html ({len(rendered_html):,} bytes), "
